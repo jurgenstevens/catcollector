@@ -14,14 +14,14 @@ class Cat:  # Note that parens are optional if not inheriting from another class
     self.age = age
 
 cats = [
-  Cat('Lolo', 'tabby', 'foul little demon', 3),
+  Cat('Mija', 'calico', 'very needy', 10),
   Cat('Sachi', 'tortoise shell', 'diluted tortoise shell', 0),
   Cat('Raven', 'black tripod', '3 legged cat', 4)
 ]
 
 # Define the home view
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟﾉ</h1>')
+  return render(request, 'home.html')
 
 def about(request):
   return render(request, 'about.html')
