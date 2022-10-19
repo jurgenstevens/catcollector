@@ -37,7 +37,7 @@ class Feeding(models.Model):
     )
 
     #Create a cat_id FK
-    cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.get_meal_display()} on {self.date}"
