@@ -22,7 +22,7 @@ class Cat(models.Model):
 
 
 class Feeding(models.Model):
-    date = models.DateField()
+    date = models.DateField('Feeding Date')
     meal = models.CharField(
     max_length=1,
     # add the 'choices' field option
@@ -30,6 +30,9 @@ class Feeding(models.Model):
     # set the default value for meal to be 'B'
     default=MEALS[0][0]
     )
+    # cannot be non-nullable field: https://stackoverflow.com/questions/31357346/error-you-are-trying-to-add-a-non-nullable-field
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         # Nice method for obtaining the friendly value of a Field.choice
         return f"{self.get_meal_display()} on {self.date}"
