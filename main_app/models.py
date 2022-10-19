@@ -4,38 +4,44 @@ from django.urls import reverse
 MEALS = (
     ('B', 'Breakfast'),
     ('L', 'Lunch'),
-    ('D', 'Dinner')
+    ('D', 'Dinner'),
 )
 
-# Create your models here.
-class Cat(models.Model):
-    name = models.CharField(max_length=100)
-    breed = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
-    age = models.IntegerField()
-
-    def __str__(self):
-        return self.name
+class Toy(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=50)
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'cat_id': self.id})  # type: ignore
+        return reverse('toys_detail', kwargs={'pk': self.id})
 
+class Cat(models.Model):
+  name = models.CharField(max_length=100)
+  breed = models.CharField(max_length=100)
+  description = models.TextField(max_length=250)
+  age = models.IntegerField()
+  toys = models.ManyToManyField(Toy)
+
+  # new code below
+  def __str__(self):
+      return self.name
+
+  def get_absolute_url(self):
+    return reverse('detail', kwargs={'cat_id': self.id})
 
 class Feeding(models.Model):
-    date = models.DateField('Feeding Date')
+    date = models.DateField("Feeding Date")
     meal = models.CharField(
-    max_length=1,
-    # add the 'choices' field option
-    choices=MEALS,
-    # set the default value for meal to be 'B'
-    default=MEALS[0][0]
+        max_length=1,
+        choices=MEALS,
+        default=MEALS[0][0]
     )
-    # cannot be non-nullable field: https://stackoverflow.com/questions/31357346/error-you-are-trying-to-add-a-non-nullable-field
-    cat = models.ForeignKey(Cat, on_delete=models.CASCADE, null=True)
+
+    #Create a cat_id FK
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
 
     def __str__(self):
-        # Nice method for obtaining the friendly value of a Field.choice
-        return f"{self.get_meal_display()} on {self.date}  # type: ignore  # type: ignore"
+        return f"{self.get_meal_display()} on {self.date}"
 
+    # change the default sort
     class Meta:
         ordering = ['-date']
