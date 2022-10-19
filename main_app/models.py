@@ -12,7 +12,7 @@ class Toy(models.Model):
     color = models.CharField(max_length=50)
 
     def get_absolute_url(self):
-        return reverse('toys_detail', kwargs={'pk': self.id})
+        return reverse('toys_detail', kwargs={'pk': self.id})  # type: ignore
 
 class Cat(models.Model):
   name = models.CharField(max_length=100)
@@ -26,7 +26,7 @@ class Cat(models.Model):
       return self.name
 
   def get_absolute_url(self):
-    return reverse('detail', kwargs={'cat_id': self.id})
+    return reverse('detail', kwargs={'cat_id': self.id})  # type: ignore
 
 class Feeding(models.Model):
     date = models.DateField("Feeding Date")
@@ -40,7 +40,7 @@ class Feeding(models.Model):
     cat = models.ForeignKey(Cat, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"{self.get_meal_display()} on {self.date}"
+        return f"{self.get_meal_display()} on {self.date}"  # type: ignore
 
     # change the default sort
     class Meta:
