@@ -18,7 +18,7 @@ class Cat(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'cat_id': self.id})
+        return reverse('detail', kwargs={'cat_id': self.id})  # type: ignore
 
 
 class Feeding(models.Model):
@@ -35,4 +35,4 @@ class Feeding(models.Model):
 
     def __str__(self):
         # Nice method for obtaining the friendly value of a Field.choice
-        return f"{self.get_meal_display()} on {self.date}"
+        return f"{self.get_meal_display()} on {self.date}  # type: ignore  # type: ignore"
